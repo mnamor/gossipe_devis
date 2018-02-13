@@ -5,16 +5,9 @@ class User < ApplicationRecord
   belongs_to :user
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-         
-  before_save { self.email = email.downcase }
 
-  validates :name,  presence: true, length: { maximum: 50 }
+         validates :content, presence: true
 
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-
-  validates :email, presence: true, length: { maximum: 255 },
-
-                    format: { with: VALID_EMAIL_REGEX },
-
-uniqueness: { case_sensitive: false }
+validates :body, presence: true, length: { maximum: 200 }
+validates :name, presence: true, length: { maximum: 20 } #validation, username ne peut pas être vide et fais au maximum 20 char
 end
